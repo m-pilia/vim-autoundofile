@@ -1,0 +1,48 @@
+*autoundofile.txt*    Autoundofile                                Feb 23, 2019
+
+Author:  Martino Pilia  <martino.pilia@gmail.com>
+Copyright: (c) 2017-2019 by Martino Pilia             *autoundofile-copyright*
+       Content available under the GNU GPL license version 3.
+       No warranty, express or implied.  Use At-Your-Own-Risk.
+
+==============================================================================
+1. Contents                             *autoundofile* *autoundofile-contents*
+
+    1. Contents.................................: |autoundofile-contents|
+    2. Autoundofile Manual......................: |autoundofile-manual|
+    3. Autoundofile History.:...................: |autoundofile-history|
+
+==============================================================================
+2. Autoundofile Manual                                   *autoundofile-manual*
+
+                                                     *autoundofile#SetLocal()*
+autoundofile#Setlocal({maxlen}, {blacklist}, {verbose})
+
+        Enable or disable |undofile| automatically for the current buffer,
+        according to some conditions. The function accepts three arguments:
+
+        1. An integer {maxlen} specifying a maximum length for the
+           |undofile()| name. If the file name has greater length, persistent
+           undo will be disabled. This is useful for instance if the undo
+           files are stored in a filesystem with file name length restrictions
+           (such as EncFs), since the undo file names include an encoding of
+           the whole path and can be quite long.
+        2. A {blacklist} of patterns. If the file name associated to the
+           buffer matches any of the patterns in the list, persistent undo
+           will be disabled.
+        3. A {verbose} flag. If true, a message will be emitted if persistent
+           undo is disabled.
+
+        The function can be called automatically when entering a buffer by
+        creating an autocommand (e.g. in `.vimrc`):
+>
+        autocmd BufNewFile,BufRead * call autoundofile#Setlocal(75, ['/tmp.*'], 1)
+<
+
+==============================================================================
+3. Autoundofile History                                 *autoundofile-history*
+   v1  Feb 23, 2019  * initial release of autoundofile
+
+==============================================================================
+Modelines: {{{1
+vim:tw=78:ts=8:ft=help:fdm=marker:
